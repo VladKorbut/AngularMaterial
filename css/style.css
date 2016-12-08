@@ -1,3 +1,6 @@
+body{
+	overflow-x:  hidden
+}
 .sidebar{
 	display: inline-block;
 	background: #1d2536;
@@ -13,7 +16,6 @@
 	display: inline-block;
 	border: 2px solid #fff;
 	border-radius: 50%;
-	background: url(img/user.png);
 	height: 50px;
 	width: 50px;
 	background-position: center;
@@ -33,7 +35,7 @@
 .projects-item{
 	padding: 0 30px;
 	height: 40px;
-	width: 222px;
+	width: 282px;
 	color: #fff;
 	display: flex;
 	align-items: center;
@@ -46,4 +48,9 @@
 .projects-item>span{
 	display: block;
 	float: right;
+}
+.btn-bottom{
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
 }

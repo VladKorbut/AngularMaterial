@@ -14,10 +14,34 @@ function($scope, $cookies, $http, $mdSidenav) {
 	        $cookies.put('user', response.data.session);
 	    });
 	}else{
-		$http.get("https://api-test-task.decodeapps.io/projects?session="+ $cookies.get('user'))
+		$http.get("https://api-test-task.decodeapps.io/projects?session="+$cookies.get('user'))
 		.then(function(data){
-			$scope.projects = data.data.projects;
-			console.log($scope.projects);
+			$scope.projects = data.data.projects; 
+		})
+		$http.get("https://api-test-task.decodeapps.io/account?session="+$cookies.get('user'))
+		.then(function(data){
+			$scope.profile = data.data.Account;
 		})
 	}
+	$scope.createProj = function(){
+		var request = {
+			'session':$cookies.get('user'),
+			'Project':{
+				'title' : $scope.projectName,
+			}
+		}
+		$http.post("https://api-test-task.decodeapps.io/projects/project", request)
+		.then(function(data){
+			
+		})
+	}
+}]);
+app.controller('TaskCtrl',['$scope', '$http', '$mdSidenav',	
+function($scope, $http, $mdSidenav) {
+    $scope.toggleRight = buildToggler('createTask');
+    function buildToggler(componentId) {
+      return function() {
+        $mdSidenav(componentId).toggle();
+      }
+    }
 }]);
