@@ -51,6 +51,9 @@
 			</md-sidenav>
 		</div>
 		<div ng-controller='TaskCtrl'>
+			<md-button ng-click="" class="btn-top" aria-label="Create Task">
+				<i class="icons8-more"></i>
+			</md-button>
 			<md-button ng-click="toggleRight()" class="btn-bottom md-fab md-primary" aria-label="Open task dash">
 				<i class="icons8-plus"></i>
 			</md-button>
@@ -70,7 +73,7 @@
 						<label>Description</label>
 						<input ng-model="taskDesk" type="text">
 					</md-input-container>
-					<md-button ng-click="createProj()" class="md-fab md-primary btn-bottom" aria-label="Create Task">
+					<md-button ng-click="createTask()" class="md-fab md-primary btn-bottom" aria-label="Create Task">
 						<i class="icons8-expand-arrow"></i>
 					</md-button>
 				</md-content>

@@ -54,3 +54,8 @@ body{
 	bottom: 30px;
 	right: 30px;
 }
+.btn-top{
+	position: fixed;
+	top: 15px;
+	right: 15px;
+}
