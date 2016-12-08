@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Angular material</title>
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-aria.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"></script>
+        <script src="https://code.angularjs.org/1.5.8/angular-cookies.min.js"></script>
+        <script type="text/javascript">
+            var app = angular.module('app', ['ngMaterial', 'ngCookies']);
+        </script>
+        <script type="text/javascript" src='js/app.js'></script>
+    </head>
+    <body ng-app='app' ng-controller='AppCtrl' ng-cloak>
+        <div class="sidebar">
+            <div class="profile">
+                <div class="photo"></div>
+                <h3>Trevor Reyes</h3>
+            </div>
+            <div class="projects">
+                <div class="add-project">
+                    <h3>
+                        Projects
+                        <a href="">
+                            <md-icon ng-click="toggleRight()" class="md-raised" aria-label="Add project">+</md-icon>
+                        </a>
+                    </h3>
+                </div>
+                <md-button class="projects-item" ng-repeat="project in projects">
+                    {{project.Project.title}}<span>{{project.Project.task_count}}</span>
+                </md-button>
+                <md-sidenav class="md-sidenav-right" md-component-id="right"
+                    md-disable-backdrop md-whiteframe="5">
+                    <md-toolbar class="md-theme-indigo">
+                        <md-button ng-click="toggleRight()" class="md-accent">
+                            x
+                        </md-button>
+                        <h1 class="md-toolbar-tools">Create Project</h1>
+                    </md-toolbar>
+                    <md-content layout-margin>
+                        <p>
+                            This sidenav is not showing any backdrop, where users can click on it, to close the sidenav.
+                        </p>
+                        
+                    </md-content>
+                </md-sidenav>
+            </div>
+        </div>
+    </body>
+</html>

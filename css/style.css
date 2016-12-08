@@ -1,0 +1,49 @@
+.sidebar{
+	display: inline-block;
+	background: #1d2536;
+	width: 342px;
+	height: 100%;
+}
+.profile{
+	padding:0 38px;
+	padding-top: 40px;
+	color: white;
+}
+.photo{
+	display: inline-block;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	background: url(img/user.png);
+	height: 50px;
+	width: 50px;
+	background-position: center;
+	background-size: cover;
+	margin: 9px;
+}
+.profile h3{
+	margin-top: 28px;
+	display: inline-block;
+	float: right;
+	width: 194px;
+	text-align: left;
+}
+.projects h3{
+	color: #fff;
+}
+.projects-item{
+	padding: 0 30px;
+	height: 40px;
+	width: 222px;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	border-radius: 5px;
+	margin: 2px 30px;
+}
+.projects-item:hover{
+	background-color: #6b6b99;
+}
+.projects-item>span{
+	display: block;
+	float: right;
+}
