@@ -28,8 +28,9 @@
 						<md-icon ng-click="toggleRight()" class="md-raised md-primary" aria-label="Add project">+</md-icon>
 					</h3>
 				</div>
-				<md-button class="projects-item" ng-repeat="project in projects">
-					{{project.Project.title}}<span>{{project.Project.task_count}}</span>
+				<md-button ng-style="(currentProject.getProject() == project.Project.id) ? current = 'active' : current=''" ng-click="selectProj(project.Project.id)" class="projects-item {{current}}" ng-repeat="project in projects">
+					<span>{{project.Project.title}}</span>
+					 <div class="pull-right">{{project.Project.task_count}}</div>
 				</md-button>
 			</div>
 			<md-sidenav class="md-sidenav-right" md-component-id="right"
@@ -50,10 +51,23 @@
 				</md-content>
 			</md-sidenav>
 		</div>
-		<div ng-controller='TaskCtrl'>
-			<md-button ng-click="" class="btn-top" aria-label="Create Task">
-				<i class="icons8-more"></i>
+		<div class='main' ng-controller='TaskCtrl'>
+			<div ng-cloak>
+			<md-input-container>
+		        <input ng-model="search.word">
+		      </md-input-container>
+				<a href="" class="btn-more pull-right"><i class="icons8-more"></i></a>
+				
 			</md-button>
+			</div>
+			
+			<md-content flex layout-padding>
+			<md-radio-group ng-repeat='task in tasks' ng-model="data.group1">
+
+		      <md-radio-button ng-click="completeTask(task.Task.id)" value="{{task.Task.title}}" class="md-primary">{{task.Task.title}}</md-radio-button>
+
+		    </md-radio-group>
+		    </md-content>
 			<md-button ng-click="toggleRight()" class="btn-bottom md-fab md-primary" aria-label="Open task dash">
 				<i class="icons8-plus"></i>
 			</md-button>

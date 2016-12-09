@@ -1,19 +1,18 @@
 var app = angular.module('app', ['ngMaterial', 'ngCookies']);
-app.controller('AppCtrl',['$scope','$cookies', '$http', '$mdSidenav',	
-function($scope, $cookies, $http, $mdSidenav) {
-	var getProj = function(){
-			$http.get("https://api-test-task.decodeapps.io/projects?session="+$cookies.get('user'))
-			.then(function(data){
-		    	console.log(data.data.projects);
-				$scope.projects = data.data.projects; 
-			})
-		}
-	var getAccount = function(){
-		$http.get("https://api-test-task.decodeapps.io/account?session="+$cookies.get('user'))
-		.then(function(data){
-			$scope.profile = data.data.Account;
-		})
-	}
+app.factory('currentProject', function() {
+  var _project ;
+  return {
+        setProject: function (project) {
+            _project = project;
+        },
+        getProject: function () {
+            return _project;
+        }
+    };
+});
+app.controller('AppCtrl',['$scope','$cookies', '$http', '$mdSidenav','currentProject',	
+function($scope, $cookies, $http, $mdSidenav,currentProject) {
+	
     $scope.toggleRight = buildToggler('right');
     function buildToggler(componentId) {
       return function() {
@@ -25,12 +24,20 @@ function($scope, $cookies, $http, $mdSidenav) {
 	    .then(function(response) {
 	        $cookies.put('user', response.data.session);
 	    });
-	    getProj();
-		getAccount();
-	}else{
-		getProj();
-		getAccount();
 	}
+	var getProj = function(){
+			$http.get("https://api-test-task.decodeapps.io/projects?session="+$cookies.get('user'))
+			.then(function(data){
+				$scope.projects = data.data.projects; 
+				currentProject.setProject(data.data.projects[0].Project.id);
+			})
+		}();
+	var getAccount = function(){
+		$http.get("https://api-test-task.decodeapps.io/account?session="+$cookies.get('user'))
+		.then(function(data){
+			$scope.profile = data.data.Account;
+		})
+	}();
 	$scope.createProj = function(){
 		var request = {
 			'session':$cookies.get('user'),
@@ -44,9 +51,12 @@ function($scope, $cookies, $http, $mdSidenav) {
 		})
 		getProj();
 	}
+	$scope.selectProj = function(proj){
+		currentProject.setProject(proj);
+	}
 }]);
-app.controller('TaskCtrl',['$scope','$cookies', '$http', '$mdSidenav',	
-function($scope, $cookies, $http, $mdSidenav){	
+app.controller('TaskCtrl',['$scope','$cookies', '$http', '$mdSidenav','currentProject',	
+function($scope, $cookies, $http, $mdSidenav, currentProject){	
     $scope.toggleRight = buildToggler('createTask');
     function buildToggler(componentId) {
       return function() {
@@ -57,7 +67,7 @@ function($scope, $cookies, $http, $mdSidenav){
 		var request = {
 			'session':$cookies.get('user'),
 			'Project':{
-				'id' : 17883,
+				'id' : currentProject.getProject(),
 			},
 			'Task': {
 			    'title': $scope.taskName,
@@ -69,21 +79,26 @@ function($scope, $cookies, $http, $mdSidenav){
 			
 		})
 	}
-	var getProj = function(){
+	$scope.getTask = function(){
 		var request = {
-			'session':$cookies.get('user'),
-			'Project':{
-				'id' : 17883,
-			},
-			'Task': {
-			    'title': $scope.taskName,
-			    'description': $scope.taskDesk
-			  }
+			'session': $cookies.get('user'),
+			'project_id' : currentProject.getProject(),
+			'paging_size':20,
+			'paging_offset':0,
 		}
-			$http.get("https://api-test-task.decodeapps.io/tasks?session="+$cookies.get('user'))
+			$http.get("https://api-test-task.decodeapps.io/tasks", {params: request})
 			.then(function(data){
-		    	console.log(data.data.projects);
-				$scope.projects = data.data.projects; 
+		    	$scope.tasks = data.data.tasks;
 			})
 		}
+	$scope.completeTask = function(id){
+		var request = {
+			'session': $cookies.get('user'),
+			'Task':{'id': id},
+		}
+		$http.post("https://api-test-task.decodeapps.io/tasks/task/complite",  request)
+		.then(function(data){
+
+		})
+	}
 }]);

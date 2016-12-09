@@ -41,11 +41,13 @@ body{
 	align-items: center;
 	border-radius: 5px;
 	margin: 2px 30px;
+	text-transform: none; 
+    font-weight: 600;
 }
 .projects-item:hover{
 	background-color: #6b6b99;
 }
-.projects-item>span{
+.projects-item span{
 	display: block;
 	float: right;
 }
@@ -58,4 +60,25 @@ body{
 	position: fixed;
 	top: 15px;
 	right: 15px;
+}
+.main{
+	display: inline-block;
+	width: calc(100% - 342px);
+	float: right;
+}
+.pull-right{
+	text-align: right;
+	right: 0;
+	float: right;
+}
+.md-fab{
+	font-size: 30px;
+}
+.active{
+	background-color: #6b6b99;
+}
+.btn-more{
+	font-size: 30px;
+	color: #000;
+	margin:5px 20px;
 }
